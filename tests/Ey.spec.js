@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-test("login page sucessfully login", async ({ page }) => {
+test("login page sucessfully login new", async ({ page }) => {
   await page.goto("https://practicetestautomation.com/practice-test-login/");
   // await page.goto(`${baseURL}`);
   await page.locator("//input[@id='username']").fill("student");
