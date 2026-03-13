@@ -17,6 +17,11 @@ import { test, expect } from "@playwright/test";
     errorMessage: "User is to short {maximum is 20 characters",
     isErrorDisplayed: true,
   },
+  {
+    username: "12345678912345678901",
+    errorMessage: "User is to short {maximum is 20 characters",
+    isErrorDisplayed: true,
+  },
 ].forEach(({ username, errorMessage, isErrorDisplayed }) => {
   test(`Error message test ${username}`, async ({ page }) => {
     await page.goto("https://conduit.bondaracademy.com/register");
