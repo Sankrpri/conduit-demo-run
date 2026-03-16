@@ -22,13 +22,38 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
+      - name: Check allure-results directory
+        if: ${{ !cancelled() }}
+        run: |
+          if [ -d "allure-results" ]; then
+            echo "✓ allure-results directory exists"
+            ls -la allure-results/
+          else
+            echo "✗ allure-results directory not found!"
+            exit 1
+          fi
+
       - name: Install Allure Command Line
         if: ${{ !cancelled() }}
-        run: npm install -g allure-commandline
+        run: npm install -g allure-commandline --save-dev
 
       - name: Generate Allure Report
         if: ${{ !cancelled() }}
-        run: allure generate allure-results -o allure-report --clean
+        run: |
+          allure --version
+          allure generate allure-results -o allure-report --clean
+          echo "✓ Allure report generated successfully"
+
+      - name: Verify Allure Report
+        if: ${{ !cancelled() }}
+        run: |
+          if [ -d "allure-report" ]; then
+            echo "✓ allure-report directory created"
+            ls -la allure-report/
+          else
+            echo "✗ Report generation failed"
+            exit 1
+          fi
 
       - name: Upload Playwright Report
         uses: actions/upload-artifact@v4

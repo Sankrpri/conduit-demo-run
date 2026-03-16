@@ -26,7 +26,11 @@ export default defineConfig({
   reporter: [
     ["html"],
     ["github"],
-    ["allure-playwright", { resultsDir: "allure-results", open: "never" }],
+    ["json", { outputFile: "test-results/results.json" }],
+    [
+      "allure-playwright",
+      { resultsDir: "allure-results", clean: true, open: "never" },
+    ],
   ],
   //["allure-playwright", { outputFolder: "allure-results" }],
   //["allure-playwright", { resultsDir: "allure-results", open: "never" }],
